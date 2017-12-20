@@ -1,17 +1,17 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
+const expressJwt = require('express-jwt');
+const requireAuth = expressJwt({ secret: process.env.JWT_ACCESS_SECRET });
 
-const service = require('./auth.service');
 const ctrl = require('./auth.ctrl');
-const requireAuth = passport.authenticate('jwt', { session: false });
-const requireSignin = passport.authenticate('local', { session: false });
 
-router.get('/status', requireAuth, (req, res) => {
-  res.json({ secret: process.env.JWT_SECRET });
+router.get('/secret', requireAuth, (req, res) => {
+  res.json({ secret: process.env.JWT_ACCESS_SECRET });
 });
-router.post('/signin', requireSignin, ctrl.signin);
-router.post('/signup', ctrl.signup);
+router.post('/login', ctrl.login);
+router.post('/registration', ctrl.registration);
+router.get('/confirmation/:emailToken', ctrl.confirmation);
+router.post('/facebook', ctrl.facebookLogin);
 
 module.exports = router;

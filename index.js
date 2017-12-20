@@ -4,17 +4,19 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const auth = require('./api/auth');
-const todo = require('./api/todo');
+const router = require('./api/router');
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/auth', auth);
-app.use('/todos', todo);
+router(app);
+
+app.use((err, req, res, next) => {
+  res.status(err.status).send(err);
+})
 
 module.exports = app;

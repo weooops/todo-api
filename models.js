@@ -28,9 +28,12 @@ const User = sequelize.define('User', {
       isEmail: true
     }
   },
-  password: {
-    type: Sequelize.STRING
-  }
+  password: Sequelize.STRING,
+  confirmed: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  facebook: Sequelize.STRING
 });
 
 const Todo = sequelize.define('Todo', {
@@ -38,9 +41,8 @@ const Todo = sequelize.define('Todo', {
     type: Sequelize.STRING,
     unique: true
   },
-  message: {
-    type: Sequelize.STRING
-  }
+  message: Sequelize.STRING,
+  creator_id: Sequelize.INTEGER
 });
 
 module.exports = {
