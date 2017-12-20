@@ -1,9 +1,10 @@
+require('dotenv').config();
 const app = require('../');
 const sync = require('./sync-db');
 
 sync().then(() => {
   console.log('Sync database');
-  app.listen(3000, () => {
+  app.listen(process.env.PORT, () => {
     console.log('Server is running');
   });
 });
