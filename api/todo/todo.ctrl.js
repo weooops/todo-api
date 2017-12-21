@@ -14,7 +14,8 @@ const index = (req, res) => {
     })
     .then(todos => {
       res.json(todos);
-    });
+    })
+    .catch(() => res.status(500).end());
 };
 
 const show = (req, res) => {
@@ -27,7 +28,8 @@ const show = (req, res) => {
     .then(todo => {
       if (!todo) return res.status(404).end();
       res.json(todo);
-    });
+    })
+    .catch(() => res.status(500).end());
 };
 
 const destroy = (req, res) => {
@@ -39,7 +41,8 @@ const destroy = (req, res) => {
     .destroy({ where: { creator_id, id } })
     .then(() => {
       res.status(204).end();
-    });
+    })
+    .catch(() => res.status(500).end());
 };
 
 const create = (req, res) => {
@@ -86,7 +89,8 @@ const update = (req, res) => {
           if (err.name === 'SequelizeUniqueConstraintError') return res.status(409).end();
           res.status(500).end();
         });
-    });
+    })
+    .catch(() => res.status(500).end());
 };
 
 module.exports = {

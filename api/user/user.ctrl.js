@@ -14,7 +14,8 @@ const show = (req, res) => {
       res.json({
         id, username, email, confirmed, facebook
       });
-    });
+    })
+    .catch(() => res.status(500).end());
 };
 
 module.exports = {

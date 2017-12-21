@@ -51,6 +51,10 @@ const registration = (req, res) => {
     return res.status(400).send('Not in email format');
   }
 
+  if (!validations.validateUsername(username)) {
+    return res.status(400).send('Only allow alphanumeric characters');
+  }
+
   const passwordLen = password.length;
   if (passwordLen < 7 || passwordLen > 24) {
     return res.status(400).send('Must be between 8 and 24 characters');
@@ -79,25 +83,18 @@ const registration = (req, res) => {
               });
 
               const email_token = utils.createEmailToken(newUser);
-              const url = `http://localhost:3000/auth/confirmation/${email_token}`;
+              const url = `http://localhost:3001/auth/confirmation/${email_token}`;
               transporter.sendMail({
                 to: email,
                 subject: 'Confirm Email',
                 html: `Please click this email to confirm your email: <a href="${url}">Complete Sign-Up</a>`
               });
             })
-            .catch(err => {
-              if (err.errors) {
-                const { validatorKey } = err.errors[0];
-                if (validatorKey === 'isAlphanumeric') {
-                  return res.status(400).send('Only allow alphanumeric characters');
-                }
-              }
-
-              res.status(500).end();
-            });
-        });
-    });
+            .catch(() => res.status(500).end());
+        })
+        .catch(() => res.status(500).end());
+    })
+    .catch(() => res.status(500).end());
 };
 
 const confirmation = (req, res) => {
@@ -106,11 +103,9 @@ const confirmation = (req, res) => {
 
   User.update({ confirmed: true }, { where: { id } })
     .then(() => {
-      res.redirect('http://localhost:3000/login');
+      res.redirect('http://localhost:3001/login');
     })
-    .catch(() => {
-      res.status(500).end();
-    });
+    .catch(() => res.status(500).end());
 };
 
 const facebookLogin = (req, res) => {
@@ -143,10 +138,9 @@ const facebookLogin = (req, res) => {
                 }
               });
             })
-            .catch(err => {
-              res.status(500).end();
-            });
-        });
+            .catch(() => res.status(500).end());
+        })
+        .catch(() => res.status(500).end());
     })
     .catch(error => {
       res.status(error.response.status).send(error.response.data.error);

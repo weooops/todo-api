@@ -1,4 +1,4 @@
-const models = require('../models')
+const models = require('../models');
 before(() => models.sequelize.sync({ force: true }));
 
 require('./auth/auth.spec');
