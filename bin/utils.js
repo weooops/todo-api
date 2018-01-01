@@ -2,6 +2,11 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-nodejs');
 
+/**
+ * 7일짜리 토큰을 생성한다.
+ * 사용자 API 액세스용으로 사용된다.
+ * @param {User} user 
+ */
 function createAccessToken(user) {
   return jwt.sign(
     { id: user.id },
@@ -14,6 +19,11 @@ function createAccessToken(user) {
   );
 }
 
+/**
+ * 30일짜리 토큰을 생성한다.
+ * 사용자가 토큰을 재생성하귀 위해 사용된다.
+ * @param {User} user 
+ */
 function createRefreshToken(user) {
   return jwt.sign(
     { id: user.id },
@@ -26,6 +36,11 @@ function createRefreshToken(user) {
   );
 }
 
+/**
+ * 1분짜리 토큰을 생성한다.
+ * 이메일 확인을 위해 사용된다.
+ * @param {User} user 
+ */
 function createEmailToken(user) {
   return jwt.sign(
     { id: user.id },
@@ -38,10 +53,10 @@ function createEmailToken(user) {
   );
 }
 
-function verifyToken(token, secret) {
-  return jwt.verify(token, secret);
-}
-
+/**
+ * 비밀번호를 암호화한다.
+ * @param {string} password 
+ */
 function generateHash(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 }
@@ -50,6 +65,5 @@ module.exports = {
   createAccessToken,
   createRefreshToken,
   createEmailToken,
-  verifyToken,
   generateHash
 };

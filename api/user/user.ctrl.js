@@ -1,5 +1,8 @@
 const User = require('../../models').User;
 
+/**
+ * 사용자 정보 조회
+ */
 const show = (req, res) => {
   const creator_id = req.user.id;
   const id = Number(req.params.id);

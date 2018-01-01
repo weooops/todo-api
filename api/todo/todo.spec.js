@@ -53,6 +53,14 @@ describe('GET /todos는', () => {
       .expect(400)
       .end(done);
     });
+
+    it('limit이 100보다 클 경우 400을 응답한다', done => {
+      request(app)
+      .get('/todos?limit=999')
+      .set('Authorization', token)
+      .expect(400)
+      .end(done);
+    });
   });
 });
 
