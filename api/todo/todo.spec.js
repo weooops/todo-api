@@ -14,7 +14,7 @@ describe('GET /todos는', () => {
     request(app)
       .post('/auth/login')
       .send({
-        login_field: 'jakejoo',
+        loginfield: 'jakejoo',
         password: 'qwer1234'
       })
       .end((err, res) => {
@@ -73,7 +73,7 @@ describe('GET /todos/:id는', () => {
     request(app)
       .post('/auth/login')
       .send({
-        login_field: 'jakejoo',
+        loginfield: 'jakejoo',
         password: 'qwer1234'
       })
       .end((err, res) => {
@@ -123,7 +123,7 @@ describe('DELETE /todos/:id는', () => {
     request(app)
       .post('/auth/login')
       .send({
-        login_field: 'jakejoo',
+        loginfield: 'jakejoo',
         password: 'qwer1234'
       })
       .end((err, res) => {
@@ -162,7 +162,7 @@ describe('POST /todos는', () => {
     request(app)
       .post('/auth/login')
       .send({
-        login_field: 'jakejoo',
+        loginfield: 'jakejoo',
         password: 'qwer1234'
       })
       .end((err, res) => {
@@ -233,7 +233,7 @@ describe('PUT /todos/:id는', () => {
     request(app)
       .post('/auth/login')
       .send({
-        login_field: 'jakejoo',
+        loginfield: 'jakejoo',
         password: 'qwer1234'
       })
       .end((err, res) => {

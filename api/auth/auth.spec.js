@@ -14,7 +14,8 @@ describe('POST /auth/registration는', () => {
         .send({
           username: 'jakejoo',
           email: 'joogeunjae@gmail.com',
-          password: 'qwer1234'
+          password: 'qwer1234',
+          comparePassword: 'qwer1234'
         })
         .end((err, res) => {
           res.body.should.have.property('access_token');
@@ -30,7 +31,8 @@ describe('POST /auth/registration는', () => {
         .post('/auth/registration')
         .send({
           email: 'joo88tg7108@naver.com',
-          password: 'asdf1234'
+          password: 'asdf1234',
+          comparePassword: 'asdf1234'
         })
         .expect(400)
         .end(done);
@@ -42,7 +44,8 @@ describe('POST /auth/registration는', () => {
         .send({
           username: 'joo88tg7108@naver.com',
           email: 'joo88tg7108@naver.com',
-          password: 'asdf1234'
+          password: 'asdf1234',
+          comparePassword: 'asdf1234'
         })
         .expect(400)
         .end(done);
@@ -54,7 +57,8 @@ describe('POST /auth/registration는', () => {
         .send({
           username: 'jakejoo',
           email: 'qwer@gmail.com',
-          password: 'qwer1234'
+          password: 'qwer1234',
+          comparePassword: 'qwer1234'
         })
         .expect(409)
         .end(done);
@@ -65,7 +69,8 @@ describe('POST /auth/registration는', () => {
         .post('/auth/registration')
         .send({
           username: 'joo88tg7108',
-          password: 'asdf1234'
+          password: 'asdf1234',
+          comparePassword: 'asdf1234'
         })
         .expect(400)
         .end(done);
@@ -77,7 +82,8 @@ describe('POST /auth/registration는', () => {
         .send({
           username: 'joo88tg7108',
           email: 'joo88tg7108',
-          password: 'asdf1234'
+          password: 'asdf1234',
+          comparePassword: 'asdf1234'
         })
         .expect(400)
         .end(done);
@@ -89,7 +95,8 @@ describe('POST /auth/registration는', () => {
         .send({
           username: 'qwer',
           email: 'joogeunjae@gmail.com',
-          password: 'qwer1234'
+          password: 'qwer1234',
+          comparePassword: 'qwer1234'
         })
         .expect(409)
         .end(done);
@@ -112,7 +119,8 @@ describe('POST /auth/registration는', () => {
         .send({
           username: 'joo88tg7108',
           email: 'joo88tg7108@naver.com',
-          password: 'asdf'
+          password: 'asdf',
+          comparePassword: 'asdf'
         })
         .expect(400)
         .end(done);
@@ -124,7 +132,21 @@ describe('POST /auth/registration는', () => {
         .send({
           username: 'joo88tg7108',
           email: 'joo88tg7108@naver.com',
-          password: 'asdf1234zxcv5678qwer7890poiuqwer'
+          password: 'asdf1234zxcv5678qwer7890poiuqwer',
+          comparePassword: 'asdf1234zxcv5678qwer7890poiuqwer'
+        })
+        .expect(400)
+        .end(done);
+    });
+
+    it('password와 comparePassword가 다른 경우 400을 응답한다', done => {
+      request(app)
+        .post('/auth/registration')
+        .send({
+          username: 'joo88tg7108',
+          email: 'joo88tg7108@naver.com',
+          password: 'qwer1234',
+          comparePassword: 'asdf1234'
         })
         .expect(400)
         .end(done);
@@ -138,7 +160,7 @@ describe('POST /auth/login는', () => {
       request(app)
         .post('/auth/login')
         .send({
-          login_field: 'jakejoo',
+          loginfield: 'jakejoo',
           password: 'qwer1234'
         })
         .end((err, res) => {
@@ -152,7 +174,7 @@ describe('POST /auth/login는', () => {
       request(app)
         .post('/auth/login')
         .send({
-          login_field: 'joogeunjae@gmail.com',
+          loginfield: 'joogeunjae@gmail.com',
           password: 'qwer1234'
         })
         .end((err, res) => {
@@ -164,11 +186,11 @@ describe('POST /auth/login는', () => {
   });
 
   describe('실패 시', () => {
-    it('login_field 누락 시 400을 응답한다', done => {
+    it('loginfield 누락 시 400을 응답한다', done => {
       request(app)
         .post('/auth/login')
         .send({
-          login_field: '',
+          loginfield: '',
           password: 'qwer1234'
         })
         .expect(400)
@@ -179,7 +201,7 @@ describe('POST /auth/login는', () => {
       request(app)
         .post('/auth/login')
         .send({
-          login_field: 'jakejoo',
+          loginfield: 'jakejoo',
           password: ''
         })
         .expect(400)
@@ -194,7 +216,7 @@ describe('GET /auth/secret는', () => {
       request(app)
         .post('/auth/login')
         .send({
-          login_field: 'jakejoo',
+          loginfield: 'jakejoo',
           password: 'qwer1234'
         })
         .end((err, res) => {

@@ -10,22 +10,22 @@ const User = require('../../models').User;
 
 /**
  * 로그인
- * "login_field"와 "password" 필드의 값을 받아서 로그인을 시도한다.
+ * "loginfield"와 "password" 필드의 값을 받아서 로그인을 시도한다.
  */
 const login = (req, res) => {
-  const { login_field, password } = req.body;
+  const { loginfield, password } = req.body;
 
-  // "login_field"와 "password" 필드는 반드시 입력해야하는 값이다.
-  if (!login_field || !password) {
+  // "loginfield"와 "password" 필드는 반드시 입력해야하는 값이다.
+  if (!loginfield || !password) {
     return res.status(400).send('You must provied username and password');
   }
 
   // "@"값이 있으면 이메일로, 없으면 사용자이름으로 선택한다.
   let loginOption = {};
-  if (login_field.search('@') > 0) {
-    loginOption.email = login_field;
+  if (loginfield.search('@') > 0) {
+    loginOption.email = loginfield;
   } else {
-    loginOption.username = login_field;
+    loginOption.username = loginfield;
   }
 
   User.findOne({ where: loginOption })
@@ -58,7 +58,7 @@ const login = (req, res) => {
  * "useranme", "eamil", "password" 필드의 값을 받아서 회원가입을 시도한다.
  */
 const registration = (req, res) => {
-  const { username, email, password, provider, provider_id } = req.body;
+  const { username, email, password, comparePassword, provider, provider_id } = req.body;
 
   // "username"과 "email", "password" 필드 값은 반드시 입력해야 한다.
   if (!username || !email || !password) {
@@ -79,6 +79,11 @@ const registration = (req, res) => {
   const passwordLen = password.length;
   if (passwordLen < 7 || passwordLen > 24) {
     return res.status(400).send('Must be between 8 and 24 characters');
+  }
+
+  // password와 comparePassword 값을 비교하여 일치하지 않을 경우 400을 반환한다.
+  if (password !== comparePassword) {
+    return res.status(400).send('Do not match password and comparePassword');
   }
 
   User
@@ -139,7 +144,7 @@ const confirmation = (req, res) => {
     // 이메일 검증 단계를 완료한다.
     User.update({ confirmed: true }, { where: { id } })
     .then(() => {
-      res.redirect('http://localhost:3001/login');
+      res.redirect('http://localhost:3000/');
     })
     .catch(() => res.status(500).end());
   });

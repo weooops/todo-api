@@ -6,6 +6,7 @@ const requireAuth = expressJwt({ secret: process.env.JWT_ACCESS_SECRET });
 
 const ctrl = require('./user.ctrl');
 
+router.get('/', ctrl.index);
 router.get('/:id', requireAuth, ctrl.show);
 
 module.exports = router;

@@ -11,10 +11,12 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Access-Control-Allow-Origin(CORS) 설정
-// "https://todo.ooops.kr", "http://localhost:3001" 두 개의 도메인에 대해서만 접근을 허용한다.
+// Access-Control-Allow-Origin(CORS) 설정: 해당 도메인에 대해서만 Cross-site requst 허용
+// prod : "https://todo.ooops.kr"
+// dev: "http://localhost:3000"
+// dev:storybook : "http://localhost:6006"
 app.use(cors({
-  origin: ['https://todo.ooops.kr', 'http://localhost:3001'],
+  origin: ['https://todo.ooops.kr', 'http://localhost:3000', 'http://localhost:6006'],
   optionsSuccessStatus: 200
 }));
 
