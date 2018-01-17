@@ -12,5 +12,7 @@
 - mocha, chai, supertest
 
 ### AWS
+- Route 53
 - EC2
 - ElasticLoadbalancer
+- RDS / mLab
