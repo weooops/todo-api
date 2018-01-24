@@ -1,6 +1,19 @@
 [
-  { "title": "title1", "message": "message1", "creator_id": 1 },
-  { "title": "title2", "message": "message2", "creator_id": 1 },
+  {
+    "title": "바다가 보고싶다!",
+    "message": "어느 바다가 예쁠까요? 국내로는 강릉쪽으로 가고 싶은데 요즘 올림픽 떄문에 정신없을것 같고...",
+    "creator_id": 1
+  },
+  {
+    "title": "유라인 일본 가자!",
+    "message": "이번엔 도쿄로 여행을 갑시다! 일명 디저트 투어!!! 벚꽃이 날리는 계절이 딱 좋을듯?",
+    "creator_id": 1
+  },
+  {
+    "title": "취업",
+    "message": "회사 그만둔지 3개월이 넘었다.. 카카오 4차 면접 진행중이어서 잘하면 합격 될수도 있을 것 같고, 추천으로 지원한 풀러스에 면접을 보고 왔는데 분위기가 너무 좋아서 느낌이 좋다. 과연 둘중에 갈것인가? 아님 또 다른데 지원하게 될 것인가? 어딜 가든 열심히 준비하고 있으면 좋은데 가겠지...?",
+    "creator_id": 1
+  },
   { "title": "title3", "message": "message3", "creator_id": 1 },
   { "title": "title4", "message": "message4", "creator_id": 2 },
   { "title": "title5", "message": "message5", "creator_id": 2 },

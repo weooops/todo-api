@@ -290,14 +290,5 @@ describe('PUT /todos/:id는', () => {
         .expect(404)
         .end(done);
     });
-
-    it('title이 중복일 경우 409를 응답한다', done => {
-      request(app)
-        .put('/todos/3')
-        .set('Authorization', token)
-        .send({ title: 'title1' })
-        .expect(409)
-        .end(done);
-    });
   });
 });

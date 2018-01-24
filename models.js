@@ -49,8 +49,7 @@ const User = sequelize.define('User', {
 const Todo = sequelize.define('Todo', {
   // 제목
   title: {
-    type: Sequelize.STRING,
-    unique: true // 고유하다
+    type: Sequelize.STRING
   },
   // 메세지
   message: Sequelize.STRING,

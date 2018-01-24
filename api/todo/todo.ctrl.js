@@ -106,7 +106,6 @@ const update = (req, res) => {
           res.json(todo);
         })
         .catch(err => {
-          if (err.name === 'SequelizeUniqueConstraintError') return res.status(409).end();
           res.status(500).end();
         });
     })
