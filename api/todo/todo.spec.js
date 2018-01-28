@@ -209,18 +209,6 @@ describe('POST /todos는', () => {
         .expect(400)
         .end(done);
     });
-
-    it('title이 중복일 경우 409를 반환한다', done => {
-      request(app)
-        .post('/todos')
-        .set('Authorization', token)
-        .send({
-          title: TITLE,
-          message: MESSAGE
-        })
-        .expect(409)
-        .end(done);
-    });
   });
 });
 

@@ -31,14 +31,14 @@ const login = (req, res) => {
   User.findOne({ where: loginOption })
     .then(user => {
       // 사용자가 존재하지 않으면 400을 반환한다.
-      if (!user) return res.status(400).end();
+      if (!user) return res.status(400).end('Please check your email or password.');
 
       // 이미 가입된 사용자와 로그인을 시도하려는 사용자의 비밀번호를 비교한다.
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) return res.status(500).end();
 
         // 비밀번호가 매치하지 않을 시 400을 반환한다.
-        if (!isMatch) return res.status(400).end();
+        if (!isMatch) return res.status(400).end('Please check your email or password.');
     
         // 비밀번호 매치 성공 시 토큰과 사용자 정보를 반환한다.
         const { id, username, email } = user;
