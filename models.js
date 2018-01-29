@@ -52,7 +52,7 @@ const Todo = sequelize.define('Todo', {
     type: Sequelize.STRING
   },
   // 메세지
-  message: Sequelize.STRING,
+  message: Sequelize.TEXT,
   // 생선한 사용자 아이디
   creator_id: Sequelize.INTEGER
 });

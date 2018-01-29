@@ -117,7 +117,7 @@ const registration = (req, res) => {
               transporter.sendMail({
                 to: email,
                 subject: 'Confirm Email',
-                html: `Please click this email to confirm your email: <a href="${url}">Complete Sign-Up</a>`
+                html: `Please click this email to confirm your email: <a href="${url}">Complete Sign Up</a>`
               });
             })
             .catch(() => res.status(500).end());
